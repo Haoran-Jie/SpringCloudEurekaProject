@@ -1,0 +1,14 @@
+server:
+  port: 8000
+  #当前服务的访问路径
+eureka:
+  instance:
+    hostname: localhost
+  #默认为true,注册中心会把自己当做是客户端来注册自己，当前应用为注册中心，设置为false表示自己不注册自己
+  client:
+    register-with-eureka: false
+    #默认为true，表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+    fetch-registry: false
+    #设置Eureka的地址，动态获取当前访问路径和端口号，这样扩展性更强
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

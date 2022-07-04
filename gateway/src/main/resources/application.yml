@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  #当前应用名称
+spring:
+  application:
+    name: cloud-geteway
+  #网关配置
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: consumer_feign #路由id,设置一个唯一的即可
+          #uri: http://localhost:8003 #匹配成功后，提供对应的服务地址
+          uri: lb://CONSUMER-FEIGN
+          predicates:
+            - Path=/aaa/** #断言，路径相匹配路由
+          filters:
+            - StripPrefix=1
+  #注册中心地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
